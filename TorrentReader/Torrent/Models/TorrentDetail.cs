@@ -28,6 +28,10 @@ namespace TorrentReader.Torrent.Models
 
         public string InfoHash { get; set; }
 
+        public string MagnetDownload { get; set; }
+
+        public IReadOnlyList<TorrentDownload> TorrentDownloadUrls { get; set; }
+
         public IReadOnlyList<string> Files { get; set; }
 
         public TorrentDetail(
@@ -43,6 +47,8 @@ namespace TorrentReader.Torrent.Models
             int amountLeechers,
             string htmlDescription,
             string infoHash,
+            string magnetDownload,
+            IReadOnlyList<TorrentDownload> torrentDownloadUrls,
             IReadOnlyList<string> files)
         {
             Category = category;
@@ -57,6 +63,8 @@ namespace TorrentReader.Torrent.Models
             AmountLeechers = amountLeechers;
             HtmlDescription = htmlDescription;
             InfoHash = infoHash;
+            MagnetDownload = magnetDownload;
+            TorrentDownloadUrls = torrentDownloadUrls;
             Files = files;
         }
     }

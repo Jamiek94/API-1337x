@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using HtmlAgilityPack;
 using TorrentReader.Torrent.Models;
@@ -10,6 +11,10 @@ namespace TorrentReader.Torrent
         public static Models.TorrentDetail Transform(HtmlDocument document)
         {
             var torrentDetailPageNode = document.DocumentNode.SelectSingleNode("//*[contains(@class, 'torrent-detail-page')]");
+
+            var torrentNode = torrentDetailPageNode.SelectSingleNode(".//ul[1]");
+            var magnetDownload = torrentNode.SelectSingleNode("li[1]/a").GetAttributeValue("href", string.Empty);
+            var torrentDownloadUrls = TransformTorrentDownloadUrls(torrentNode);
 
             var leftColumnDetailNode = torrentDetailPageNode.SelectSingleNode(".//ul[2]");
             var category = leftColumnDetailNode.SelectSingleNode("li[1]/span").InnerText;
@@ -45,7 +50,23 @@ namespace TorrentReader.Torrent
                 amountLeechers,
                 htmlDescription,
                 infoHash,
+                magnetDownload,
+                torrentDownloadUrls,
                 files);
+        }
+
+        private static IReadOnlyList<TorrentDownload> TransformTorrentDownloadUrls(HtmlNode torrentNode)
+        {
+            return torrentNode.SelectNodes("li[contains(@class, 'dropdown')]/ul/li/a").Select(
+                node =>
+                {
+                    var name = node.SelectSingleNode("text()").InnerText;
+                    var mirrorUrl = node.GetAttributeValue("href", string.Empty);
+
+                    return new TorrentDownload(name, mirrorUrl);
+                })
+                .Where(torrentDownload => !torrentDownload.Name.ToLower().Contains("magnet"))
+                .ToList();
         }
     }
 }
