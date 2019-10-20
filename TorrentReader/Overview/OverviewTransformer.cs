@@ -43,7 +43,7 @@ namespace TorrentReader.Overview
 
         private static DateTime ParseDateTime(HtmlNodeCollection tdNodes, CultureInfo uploadedOnCultureInfo)
         {
-            var formats = new []  {@"MMM\. d \'yy", @"htt MMM\. d", "h:mmtt" };
+            var formats = new []  {@"MMM\. d \'yy", @"htt MMM\. d", "h:mmtt", @"htt MMM\. d" };
 
             return DateTime.ParseExact(StripDateAffix(tdNodes[3].InnerText), formats, uploadedOnCultureInfo, DateTimeStyles.None);
         }
@@ -65,7 +65,7 @@ namespace TorrentReader.Overview
 
         private static string StripDateAffix(string date)
         {
-            var affixes = new List<string> { "st", "nd", "th" };
+            var affixes = new List<string> { "st", "nd", "th", "rd" };
 
             var modifiedDate = date;
 
