@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using HtmlAgilityPack;
 using TorrentReader.Torrent.Models;
 
-namespace TorrentReader.Torrent
+namespace TorrentReader.Torrent.Transformer
 {
-    public class TorrentDetailTransformer
+    public class TorrentDetailTransformer : ITorrentDetailTransformer
     {
-        public static Models.TorrentDetail Transform(HtmlDocument document)
+        public TorrentDetail Transform(HtmlDocument document)
         {
             var torrentDetailPageNode = document.DocumentNode.SelectSingleNode("//*[contains(@class, 'torrent-detail-page')]");
 

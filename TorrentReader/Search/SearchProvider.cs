@@ -8,8 +8,15 @@ using TorrentReader.Search.Models;
 
 namespace TorrentReader.Search
 {
-    public class SearchProvider
+    public class SearchProvider : ISearchProvider
     {
+        private readonly ISearchTransformer _searchTransformer;
+
+        public SearchProvider(ISearchTransformer searchTransformer)
+        {
+            _searchTransformer = searchTransformer;
+        }
+
         public async Task<SearchResult> SearchAsync(string searchText, int page, SearchSortByType sort, SortOrderType order)
         {
             var web = new HtmlWeb();
@@ -17,7 +24,7 @@ namespace TorrentReader.Search
             var searchUrl = GetSearchUrl(searchText, page, sort, order);
             var document = await web.LoadFromWebAsync(searchUrl).ConfigureAwait(false);
 
-            return SearchTransformer.Transform(document, page);
+            return _searchTransformer.Transform(document, page);
         }
 
         private static string GetSortFilterUrlPart(SearchSortByType sortByType, SortOrderType orderByType)

@@ -10,11 +10,11 @@ namespace API.Controllers
     [ApiController]
     public class SearchController : ControllerBase
     {
-        private readonly SearchProvider _searchProvider;
+        private readonly ISearchProvider _searchProvider;
 
-        public SearchController()
+        public SearchController(ISearchProvider searchProvider)
         {
-            _searchProvider = new SearchProvider();
+            _searchProvider = searchProvider;
         }
 
         [HttpGet]

@@ -6,13 +6,13 @@ using TorrentReader.Config;
 
 namespace TorrentReader.Http
 {
-    public class HttpProvider
+    public class HttpProvider : IHttpProvider
     {
-        private static readonly HttpClient HttpClient = new HttpClient();
+        private readonly HttpClient _httpClient = new HttpClient();
 
-        public static async Task<IReadOnlyList<TEntity>> GetAsync<TEntity>(string relativeUrl) where TEntity : class
+        public async Task<IReadOnlyList<TEntity>> GetAsync<TEntity>(string relativeUrl) where TEntity : class
         {
-            var response = await HttpClient.GetAsync($"{Configuration.BaseUrl}{relativeUrl}").ConfigureAwait(false);
+            var response = await _httpClient.GetAsync($"{Configuration.BaseUrl}{relativeUrl}").ConfigureAwait(false);
             var jsonBody = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
             return JsonConvert.DeserializeObject<IReadOnlyList<TEntity>>(jsonBody);

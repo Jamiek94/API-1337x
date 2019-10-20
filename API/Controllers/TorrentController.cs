@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using TorrentReader.Torrent;
 using TorrentReader.Torrent.Models;
+using TorrentReader.Torrent.Provider;
 
 namespace API.Controllers
 {
@@ -9,11 +10,11 @@ namespace API.Controllers
     [ApiController]
     public class TorrentController : ControllerBase
     {
-        private readonly TorrentProvider _torrentProvider;
+        private readonly ITorrentProvider _torrentProvider;
 
-        public TorrentController()
+        public TorrentController(ITorrentProvider torrentProvider)
         {
-            _torrentProvider = new TorrentProvider();
+            _torrentProvider = torrentProvider;
         }
 
         [HttpGet]

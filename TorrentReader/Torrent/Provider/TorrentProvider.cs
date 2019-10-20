@@ -1,14 +1,25 @@
 ﻿using System.Collections.Generic;
-using HtmlAgilityPack;
 using System.Threading.Tasks;
+using HtmlAgilityPack;
 using TorrentReader.Config;
 using TorrentReader.Http;
 using TorrentReader.Torrent.Models;
+using TorrentReader.Torrent.Transformer;
 
-namespace TorrentReader.Torrent
+namespace TorrentReader.Torrent.Provider
 {
-    public class TorrentProvider
+    public class TorrentProvider : ITorrentProvider
     {
+        private readonly IHttpProvider _httpProvider;
+
+        private readonly ITorrentDetailTransformer _torrentDetailTransformer;
+
+        public TorrentProvider(IHttpProvider httpProvider, ITorrentDetailTransformer torrentDetailTransformer)
+        {
+            _httpProvider = httpProvider;
+            _torrentDetailTransformer = torrentDetailTransformer;
+        }
+
         public async Task<Models.Torrent> GetAsync(int torrentId, string slug)
         {
             var torrentUrl = $"{Configuration.BaseUrl}/torrent/{torrentId}/{slug}/";
@@ -21,7 +32,7 @@ namespace TorrentReader.Torrent
             var document = await documentTask;
             var comments = await commentsTask;
 
-            var detail = TorrentDetailTransformer.Transform(document);
+            var detail = _torrentDetailTransformer.Transform(document);
 
             return new Models.Torrent(detail, comments);
         }
@@ -30,7 +41,7 @@ namespace TorrentReader.Torrent
         {
             var commentsUrl = $"/comments.php?torrentid={torrentId}";
 
-            return HttpProvider.GetAsync<Comment>(commentsUrl);
+            return _httpProvider.GetAsync<Comment>(commentsUrl);
         }
     }
 }
