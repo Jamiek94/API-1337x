@@ -2,7 +2,7 @@
 API for scraping 1337x.to
 
 ## API Calls
-There are currently 2 API calls supported.
+Below are the supported API calls.
 
 ### Searching
 Possible query parameters: search, page, sort, order.
