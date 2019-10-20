@@ -19,19 +19,19 @@ Currently supported; popular (day, last week), foreign (day, last week), trendin
 
 #### Popular movies
 Day + week
-http://localhost:5000/api/movies/popular?movieRangeType=0
-http://localhost:5000/api/movies/popular?movieRangeType=1
+- http://localhost:5000/api/movies/popular?movieRangeType=0
+- http://localhost:5000/api/movies/popular?movieRangeType=1
 
 #### Populair foreign movies
 Day + week
-http://localhost:5000/api/movies/popular-foreign?movieRangeType=0
-http://localhost:5000/api/movies/popular-foreign?movieRangeType=1
+- http://localhost:5000/api/movies/popular-foreign?movieRangeType=0
+- http://localhost:5000/api/movies/popular-foreign?movieRangeType=1
 
 #### Trending
 Day + week
-http://localhost:5000/api/movies/trending?movieRangeType=0
-http://localhost:5000/api/movies/trending?movieRangeType=1
+- http://localhost:5000/api/movies/trending?movieRangeType=0
+- http://localhost:5000/api/movies/trending?movieRangeType=1
 
 #### Top 100
 Day + week
-http://localhost:5000/api/movies/top100
+- http://localhost:5000/api/movies/top100
