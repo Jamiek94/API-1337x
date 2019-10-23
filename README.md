@@ -1,5 +1,5 @@
 # API-1337x
-API for scraping 1337x.to
+C# ASP.NET Core API for scraping 1337x.to
 
 ## API Calls
 Below are the supported API calls.
