@@ -2,10 +2,10 @@
 using System.Threading.Tasks;
 using TorrentReader.Search.Models;
 
-namespace TorrentReader.Movies.Trending
+namespace TorrentReader.Providers.Movies.Trending
 {
     public interface ITrendingMovieProvider
     {
-        Task<IReadOnlyList<SearchResultItem>> GetAsync(MovieRangeType movieRangeType);
+        Task<IReadOnlyList<SearchResultItem>> GetAsync(TorrentPopularityRange movieRangeType);
     }
 }

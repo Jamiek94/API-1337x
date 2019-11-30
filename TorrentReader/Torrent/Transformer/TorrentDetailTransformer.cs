@@ -12,6 +12,7 @@ namespace TorrentReader.Torrent.Transformer
             var torrentDetailPageNode = document.DocumentNode.SelectSingleNode("//*[contains(@class, 'torrent-detail-page')]");
 
             var torrentNode = torrentDetailPageNode.SelectSingleNode(".//ul[1]");
+            var imageUrl = torrentDetailPageNode.SelectSingleNode(".//*[contains(@class, 'torrent-image')]/div/img").GetAttributeValue("src", string.Empty).ToString();
             var magnetDownload = torrentNode.SelectSingleNode("li[1]/a").GetAttributeValue("href", string.Empty);
             var torrentDownloadUrls = TransformTorrentDownloadUrls(torrentNode);
 
@@ -33,7 +34,7 @@ namespace TorrentReader.Torrent.Transformer
 
             var torrentTabsNode = torrentDetailPageNode.SelectSingleNode(".//*[contains(@class, 'torrent-tabs')]");
             var tabPaneNodes = torrentTabsNode.SelectNodes(".//*[contains(@class, 'tab-content')]/div[contains(@class, 'tab-pane')]").ToList();
-            var htmlDescription = tabPaneNodes[0].InnerHtml;
+            var htmlDescription = tabPaneNodes[0].InnerHtml.Trim();
             var files = tabPaneNodes[1].SelectNodes("ul/li/text()").Select(x => x.InnerText).ToList();
 
             return new TorrentDetail(
@@ -50,6 +51,7 @@ namespace TorrentReader.Torrent.Transformer
                 htmlDescription,
                 infoHash,
                 magnetDownload,
+                imageUrl,
                 torrentDownloadUrls,
                 files);
         }

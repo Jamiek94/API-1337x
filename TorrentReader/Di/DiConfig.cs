@@ -1,9 +1,12 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using TorrentReader.Http;
-using TorrentReader.Movies.Popular;
-using TorrentReader.Movies.Top;
-using TorrentReader.Movies.Trending;
 using TorrentReader.Overview;
+using TorrentReader.Providers.Games.Popular;
+using TorrentReader.Providers.Games.Top;
+using TorrentReader.Providers.Games.Trending;
+using TorrentReader.Providers.Movies.Popular;
+using TorrentReader.Providers.Movies.Top;
+using TorrentReader.Providers.Movies.Trending;
 using TorrentReader.Search;
 using TorrentReader.Torrent.Provider;
 using TorrentReader.Torrent.Transformer;
@@ -18,6 +21,11 @@ namespace TorrentReader.Di
 
             serviceCollection.AddTransient<IPopularMovieProvider, PopularMovieProvider>();
             serviceCollection.AddTransient<ITrendingMovieProvider, TrendingMovieProvider>();
+            serviceCollection.AddTransient<ITopHundredMovieProvider, TopHundredMovieProvider>();
+
+            serviceCollection.AddTransient<IPopularGamesProvider, PopularGamesProvider>();
+            serviceCollection.AddTransient<ITrendingGamesProvider, TrendingGamesProvider>();
+            serviceCollection.AddTransient<ITopHundredGamesProvider, TopHundredGamesProvider>();
 
             serviceCollection.AddTransient<IOverviewTransformer, OverviewTransformer>();
 
@@ -27,7 +35,7 @@ namespace TorrentReader.Di
             serviceCollection.AddTransient<ITorrentProvider, TorrentProvider>();
             serviceCollection.AddTransient<ITorrentDetailTransformer, TorrentDetailTransformer>();
 
-            serviceCollection.AddTransient<ITopHundredMovieProvider, TopHundredMovieProvider>();
+            
         }
     }
 }

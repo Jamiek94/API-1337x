@@ -18,9 +18,9 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public Task<SearchResult> Get(string search, int page = 1, SearchSortByType sort = SearchSortByType.Seeders, SortOrderType order = SortOrderType.Descending)
+        public Task<SearchResult> Get(string text, int page = 1, SearchSortByType sort = SearchSortByType.Seeders, SortOrderType order = SortOrderType.Descending)
         {
-            return _searchProvider.SearchAsync(search, page, sort, order);
+            return _searchProvider.SearchAsync(text, page, sort, order);
         }
         
     }

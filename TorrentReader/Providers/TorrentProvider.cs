@@ -1,26 +1,26 @@
-﻿using System.Collections.Generic;
+﻿using HtmlAgilityPack;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using HtmlAgilityPack;
 using TorrentReader.Config;
 using TorrentReader.Overview;
 using TorrentReader.Search.Models;
 
-namespace TorrentReader.Movies.Top
+namespace TorrentReader.Providers
 {
-    public class TopHundredMovieProvider : ITopHundredMovieProvider
+    public abstract class TorrentProvider
     {
         private readonly IOverviewTransformer _overviewTransformer;
 
-        public TopHundredMovieProvider(IOverviewTransformer overviewTransformer)
+        public TorrentProvider(IOverviewTransformer overviewTransformer)
         {
             _overviewTransformer = overviewTransformer;
         }
 
-        public async Task<IReadOnlyList<SearchResultItem>> GetAsync()
+        protected async Task<IReadOnlyList<SearchResultItem>> Get(string popularityRangePath)
         {
             var web = new HtmlWeb();
 
-            var url = $"{Configuration.BaseUrl}/top-100-movies";
+            var url = $"{Configuration.BaseUrl}/{popularityRangePath}";
             var document = await web.LoadFromWebAsync(url).ConfigureAwait(false);
 
             return _overviewTransformer.Transform(document);

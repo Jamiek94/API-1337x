@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using TorrentReader.Movies;
-using TorrentReader.Movies.Popular;
-using TorrentReader.Movies.Top;
-using TorrentReader.Movies.Trending;
+using TorrentReader.Providers;
+using TorrentReader.Providers.Movies.Popular;
+using TorrentReader.Providers.Movies.Top;
+using TorrentReader.Providers.Movies.Trending;
 using TorrentReader.Search.Models;
 
 namespace API.Controllers
@@ -30,19 +30,19 @@ namespace API.Controllers
         }
 
         [HttpGet("popular")]
-        public Task<IReadOnlyList<SearchResultItem>> GetPopular(MovieRangeType movieRangeType)
+        public Task<IReadOnlyList<SearchResultItem>> GetPopular(TorrentPopularityRange movieRangeType)
         {
             return _popularMovieProvider.GetMoviesAsync(movieRangeType);
         }
 
         [HttpGet("popular-foreign")]
-        public Task<IReadOnlyList<SearchResultItem>> GetPopularForeign(MovieRangeType movieRangeType)
+        public Task<IReadOnlyList<SearchResultItem>> GetPopularForeign(TorrentPopularityRange movieRangeType)
         {
             return _popularMovieProvider.GetForeignMoviesAsync(movieRangeType);
         }
 
         [HttpGet("trending")]
-        public Task<IReadOnlyList<SearchResultItem>> GetTrending(MovieRangeType movieRangeType)
+        public Task<IReadOnlyList<SearchResultItem>> GetTrending(TorrentPopularityRange movieRangeType)
         {
             return _trendingMovieProvider.GetAsync(movieRangeType);
         }
