@@ -4,6 +4,8 @@ namespace TorrentReader.Torrent.Models
 {
     public class TorrentDetail
     {
+        public string Title { get; set; }
+
         public string Category { get; set; }
 
         public string Type { get; set; }
@@ -37,6 +39,7 @@ namespace TorrentReader.Torrent.Models
         public IReadOnlyList<string> Files { get; set; }
 
         public TorrentDetail(
+            string title,
             string category,
             string type,
             string language,
@@ -54,6 +57,7 @@ namespace TorrentReader.Torrent.Models
             IReadOnlyList<TorrentDownload> torrentDownloadUrls,
             IReadOnlyList<string> files)
         {
+            Title = title;
             Category = category;
             Type = type;
             Language = language;

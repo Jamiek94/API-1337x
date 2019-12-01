@@ -12,7 +12,8 @@ namespace TorrentReader.Torrent.Transformer
             var torrentDetailPageNode = document.DocumentNode.SelectSingleNode("//*[contains(@class, 'torrent-detail-page')]");
 
             var torrentNode = torrentDetailPageNode.SelectSingleNode(".//ul[1]");
-            var imageUrl = torrentDetailPageNode.SelectSingleNode(".//*[contains(@class, 'torrent-image')]/div/img").GetAttributeValue("src", string.Empty).ToString();
+            var title = torrentDetailPageNode.SelectSingleNode("div/h1").InnerText.Trim();
+            var imageUrl = GetImageUrl(torrentDetailPageNode);
             var magnetDownload = torrentNode.SelectSingleNode("li[1]/a").GetAttributeValue("href", string.Empty);
             var torrentDownloadUrls = TransformTorrentDownloadUrls(torrentNode);
 
@@ -38,6 +39,7 @@ namespace TorrentReader.Torrent.Transformer
             var files = tabPaneNodes[1].SelectNodes("ul/li/text()").Select(x => x.InnerText).ToList();
 
             return new TorrentDetail(
+                title,
                 category,
                 type,
                 language,
@@ -54,6 +56,18 @@ namespace TorrentReader.Torrent.Transformer
                 imageUrl,
                 torrentDownloadUrls,
                 files);
+        }
+
+        private static string GetImageUrl(HtmlNode torrentDetailPageNode)
+        {
+            var imageUrl = torrentDetailPageNode.SelectSingleNode(".//*[contains(@class, 'torrent-image')]/div/img").GetAttributeValue("src", string.Empty).ToString();
+
+            if(imageUrl.StartsWith("//"))
+            {
+                return $"https://{imageUrl.Substring(2, imageUrl.Length - 2)}";
+            }
+
+            return imageUrl;
         }
 
         private static IReadOnlyList<TorrentDownload> TransformTorrentDownloadUrls(HtmlNode torrentNode)
