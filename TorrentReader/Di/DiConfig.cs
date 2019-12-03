@@ -32,10 +32,8 @@ namespace TorrentReader.Di
             serviceCollection.AddTransient<ISearchProvider, SearchProvider>();
             serviceCollection.AddTransient<ISearchTransformer, SearchTransformer>();
 
-            serviceCollection.AddTransient<ITorrentProvider, TorrentProvider>();
+            serviceCollection.AddTransient<ITorrentDetailProvider, TorrentDetailProvider>();
             serviceCollection.AddTransient<ITorrentDetailTransformer, TorrentDetailTransformer>();
-
-            
         }
     }
 }

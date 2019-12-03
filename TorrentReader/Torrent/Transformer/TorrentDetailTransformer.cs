@@ -60,9 +60,16 @@ namespace TorrentReader.Torrent.Transformer
 
         private static string GetImageUrl(HtmlNode torrentDetailPageNode)
         {
-            var imageUrl = torrentDetailPageNode.SelectSingleNode(".//*[contains(@class, 'torrent-image')]/div/img").GetAttributeValue("src", string.Empty).ToString();
+            var imageNode = torrentDetailPageNode.SelectSingleNode(".//*[contains(@class, 'torrent-image')]/div/img");
 
-            if(imageUrl.StartsWith("//"))
+            if(imageNode == null)
+            {
+                return string.Empty;
+            }
+
+            var imageUrl = imageNode.GetAttributeValue("src", string.Empty).ToString();
+
+            if (imageUrl.StartsWith("//"))
             {
                 return $"https://{imageUrl.Substring(2, imageUrl.Length - 2)}";
             }

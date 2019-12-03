@@ -10,9 +10,9 @@ namespace API.Controllers
     [ApiController]
     public class TorrentController : ControllerBase
     {
-        private readonly ITorrentProvider _torrentProvider;
+        private readonly ITorrentDetailProvider _torrentProvider;
 
-        public TorrentController(ITorrentProvider torrentProvider)
+        public TorrentController(ITorrentDetailProvider torrentProvider)
         {
             _torrentProvider = torrentProvider;
         }

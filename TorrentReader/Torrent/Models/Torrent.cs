@@ -6,9 +6,9 @@ namespace TorrentReader.Torrent.Models
     {
         public TorrentDetail Detail { get; set; }
 
-        public IReadOnlyList<Comment> Comments { get; set; }
+        public IReadOnlyList<TorrentComment> Comments { get; set; }
 
-        public Torrent(TorrentDetail detail, IReadOnlyList<Comment> comments)
+        public Torrent(TorrentDetail detail, IReadOnlyList<TorrentComment> comments)
         {
             Detail = detail;
             Comments = comments;
