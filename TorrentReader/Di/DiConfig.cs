@@ -7,6 +7,7 @@ using TorrentReader.Providers.Games.Trending;
 using TorrentReader.Providers.Movies.Popular;
 using TorrentReader.Providers.Movies.Top;
 using TorrentReader.Providers.Movies.Trending;
+using TorrentReader.Providers.Trending;
 using TorrentReader.Search;
 using TorrentReader.Torrent.Provider;
 using TorrentReader.Torrent.Transformer;
@@ -26,6 +27,8 @@ namespace TorrentReader.Di
             serviceCollection.AddTransient<IPopularGamesProvider, PopularGamesProvider>();
             serviceCollection.AddTransient<ITrendingGamesProvider, TrendingGamesProvider>();
             serviceCollection.AddTransient<ITopHundredGamesProvider, TopHundredGamesProvider>();
+
+            serviceCollection.AddTransient<ITrendingTorrentsProvider, TrendingTorrentsProvider>();
 
             serviceCollection.AddTransient<IOverviewTransformer, OverviewTransformer>();
 

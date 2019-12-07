@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using TorrentReader;
 using TorrentReader.Search;
 using TorrentReader.Search.Models;
 
