@@ -13,6 +13,11 @@ namespace TorrentReader.Overview
         {
             var tableItemNodeCollection = document.DocumentNode.SelectNodes("//table/tbody/tr");
 
+            if(tableItemNodeCollection == null)
+            {
+                return new List<SearchResultItem>();
+            }
+
             return tableItemNodeCollection.Select(CreateSearchResultItem).ToList();
         }
 

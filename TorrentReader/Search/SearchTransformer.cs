@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using HtmlAgilityPack;
 using TorrentReader.Overview;
 using TorrentReader.Search.Models;
@@ -17,6 +18,11 @@ namespace TorrentReader.Search
         public SearchResult Transform(HtmlDocument document, int page)
         {
             var searchResultItems = _overviewTransformer.Transform(document);
+
+            if(!searchResultItems.Any())
+            {
+                return new SearchResult(searchResultItems, 0, 0);
+            }
 
             var lastPageRelativeUrl = document.DocumentNode.SelectSingleNode("//*[contains(@class, 'pagination')]/ul/li[last()]/a[1]").GetAttributeValue("href", string.Empty);
 
