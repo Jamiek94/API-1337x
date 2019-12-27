@@ -24,9 +24,16 @@ namespace TorrentReader.Search
                 return new SearchResult(searchResultItems, 0, 0);
             }
 
-            var lastPageRelativeUrl = document.DocumentNode.SelectSingleNode("//*[contains(@class, 'pagination')]/ul/li[last()]/a[1]").GetAttributeValue("href", string.Empty);
+            var paginationLastPageNode = document.DocumentNode.SelectSingleNode("//*[contains(@class, 'pagination')]/ul/li[last()]/a[1]");
 
-            var amountPages = GetAmountPages(lastPageRelativeUrl);
+            int amountPages = 1;
+
+            if(paginationLastPageNode != null)
+            {
+                var lastPageRelativeUrl = paginationLastPageNode.GetAttributeValue("href", string.Empty);
+
+                amountPages = GetAmountPages(lastPageRelativeUrl);
+            }
 
             return new SearchResult(searchResultItems, amountPages, page);
         }
